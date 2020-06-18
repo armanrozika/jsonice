@@ -1,10 +1,23 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.org/docs/gatsby-config/
- */
-
 module.exports = {
-  /* Your site config here */
-  plugins: [],
+  siteMetadata: {
+    title: "Jsonice",
+    description: "Online json generator with real API call",
+    url: "https://jsonice.com",
+    author: "armanrozika",
+  },
+  plugins: [
+    "gatsby-plugin-react-helmet",
+    "gatsby-plugin-sass",
+    {
+      resolve: "gatsby-plugin-prefetch-google-fonts",
+      options: {
+        fonts: [
+          {
+            family: "Nunito",
+            variants: ["300", "700"],
+          },
+        ],
+      },
+    },
+  ],
 }

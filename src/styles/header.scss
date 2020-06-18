@@ -1,0 +1,23 @@
+header {
+  background-color: #343e45;
+  padding: 10px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h1 {
+    color: #ffffff;
+    font-size: 20px;
+    span {
+      color: #d1507d;
+    }
+  }
+  a {
+    color: #fff;
+    margin-left: 50px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .active {
+    color: #d1507d;
+  }
+}
