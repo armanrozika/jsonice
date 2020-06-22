@@ -44,26 +44,31 @@
       margin-top: 20px;
       display: grid;
       grid-template-columns: 6fr 4fr;
-      background-color: #eef8ff;
+      background-color: #f2f2f2;
       height: 80vh;
       .flex-child {
-        padding: 20px;
+        padding: 0 20px 20px 20px;
         height: 100%;
         box-sizing: border-box;
         overflow: auto;
         position: relative;
-        .view-schema {
-          position: absolute;
+        .generate {
+          position: sticky;
+          width: 100px;
           top: 0;
-          right: 0;
-          background-color: #cc507d;
+          left: 100%;
+          margin-bottom: 10px;
+          background-color: #1998f4;
           color: #fff;
           padding: 4px 8px;
           font-size: 14px;
           cursor: pointer;
+          z-index: 99;
+          box-shadow: 2px 2px 3px grey;
         }
         &:nth-child(2) {
           background-color: #28363f;
+          //padding: 0;
         }
         .rows-count {
           display: flex;
@@ -88,7 +93,8 @@
           .input-rows {
             display: flex;
             align-items: top;
-            margin-top: 10px;
+            margin-top: 5px;
+            padding: 5px;
             div {
               .add-child {
                 display: flex;
@@ -103,14 +109,11 @@
                 width: 150px;
                 padding: 0px 5px;
                 font-size: 14px;
-                .select__control {
-                  height: 30px !important;
-                }
               }
-              input {
+              .input-me {
                 width: 150px;
                 padding: 8px 10px;
-                height: 19px;
+                height: 20px;
                 border-radius: 5px;
                 border: hsl(0, 0%, 80%) 1px solid;
                 &:focus {
@@ -120,15 +123,68 @@
             }
 
             .delete-row {
-              width: 20px;
-              height: 20px;
+              width: 15px;
+              height: 15px;
               margin-left: 10px;
               border: none;
               background-color: red;
               font-weight: 700;
               color: #fff;
               cursor: pointer;
-              margin-top: 8px;
+              margin-top: 10px;
+              padding-bottom: 2px;
+              box-sizing: border-box;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              //vertical-align: middle;
+            }
+          }
+          .has-children {
+            background-color: #fff;
+            padding: 5px 0;
+            border-radius: 5px;
+            //overflow: hidden;
+            //padding: 5px 0;
+            margin-top: 10px;
+            position: relative;
+            .children-type {
+              position: absolute;
+              top: 0;
+              right: 0;
+              padding: 5px 10px;
+              background-color: #c2507d;
+              color: #fff;
+              font-size: 14px;
+            }
+          }
+          .children-rows {
+            margin-left: 10px;
+            font-size: 14px;
+
+            label {
+              margin-right: 5px;
+            }
+            .children-rows-input {
+              width: 50px !important;
+            }
+          }
+          .children-add {
+            width: 20px;
+            height: 20px;
+            margin-left: 5px;
+            //margin-bottom: 5px;
+            border-radius: 50%;
+            //margin-top: 5px;
+            border: none;
+            color: #fff;
+            background-color: #cc507d;
+            cursor: pointer;
+            &:focus {
+              outline: none;
+            }
+            &:hover {
+              background-color: lighten(#cc507d, 5);
             }
           }
         }
@@ -155,3 +211,8 @@
 }
 
 //#d1507d
+.highlighter {
+  span {
+    font-family: monospace;
+  }
+}

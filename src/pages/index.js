@@ -12,7 +12,10 @@ export default function Home() {
         <h1>
           JS<span>[O]</span>NICE
         </h1>
-        <p>An online tool for generating JSON data, with real API call.</p>
+        <p>
+          An online (GUI-based) tool for generating JSON data, with real API
+          call.
+        </p>
         <p>No more copy-paste.</p>
         <Link to="/app">
           <button>Get started</button>
