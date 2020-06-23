@@ -281,7 +281,7 @@ function App() {
     const dataToSend = sanitateData(rowsCount, allRows)
 
     try {
-      const res = await fetch("https://server-dummy.herokuapp.com", {
+      const res = await fetch("https://server-dummy.herokuapp.com/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
