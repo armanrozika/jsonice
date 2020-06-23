@@ -13,11 +13,11 @@ function About() {
         <p>JSONICE is an online GUI-based json generator.</p>
         <p>
           There are many json generator out there. What makes JSONICE different
-          is that it capable of generate json data via nice GUI form.
+          is that it capable of generating json data via nice GUI form.
         </p>
         <p>
-          Often times, we don't have time to tinker with syntax, and just need
-          the data right away.
+          Often times, we don't have the time to tinker with syntax, and just
+          need the data right away.
         </p>
       </div>
     </div>

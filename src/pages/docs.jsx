@@ -36,7 +36,7 @@ function Tutorial() {
             if you want to randomize number within range 20 and 30, just type{" "}
             <code>20 to 30</code> in the input field. <br />
             Same goes for date, just make sure you use the format of{" "}
-            <code>YYYY/MM/DD</code>.
+            <code>YYYY-MM-DD</code>.
           </li>
         </ul>
         <h3>Adding nested child</h3>

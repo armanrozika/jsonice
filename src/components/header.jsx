@@ -12,10 +12,10 @@ function Header() {
         <a href="https://github.com/armanrozika/jsonice" target="_blank">
           <svg
             //className="octicon octicon-mark-github v-align-middle"
-            height="28"
+            height="26"
             viewBox="0 0 16 16"
             version="1.1"
-            width="28"
+            width="26"
             aria-hidden="true"
           >
             <path
@@ -24,6 +24,9 @@ function Header() {
             ></path>
           </svg>
         </a>
+        <Link activeClassName="active" to="/app">
+          App
+        </Link>
         <Link activeClassName="active" to="/docs">
           Docs
         </Link>
