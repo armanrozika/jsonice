@@ -542,6 +542,7 @@ function App() {
                       return
                     }
                     data.user_id = user_id
+                    data.schema_name = modelName
                     fetch("https://server-dummy.herokuapp.com/save", {
                       method: "POST",
                       headers: {
