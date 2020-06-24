@@ -9,7 +9,7 @@ function Header() {
   const [isLoading, setIsLoading] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         setIsLoading(false)
         setIsLoggedIn(true)
@@ -18,6 +18,9 @@ function Header() {
         setIsLoading(false)
       }
     })
+    return function () {
+      unsubscribe()
+    }
   })
   return (
     <header>

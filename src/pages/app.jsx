@@ -514,16 +514,16 @@ function App() {
             >
               {isGenerating ? "Generating..." : "Generate"}
             </p>
-            <div className="model-action">
-              <input
-                type="text"
-                placeholder="model name"
-                value={modelName}
-                onChange={e => {
-                  setModelName(e.target.value)
-                }}
-              />
-              {user && (
+            {user && (
+              <div className="model-action">
+                <input
+                  type="text"
+                  placeholder="model name"
+                  value={modelName}
+                  onChange={e => {
+                    setModelName(e.target.value)
+                  }}
+                />
                 <p
                   className="generate"
                   onClick={() => {
@@ -561,8 +561,8 @@ function App() {
                 >
                   Save
                 </p>
-              )}
-            </div>
+              </div>
+            )}
           </div>
 
           {user && (
