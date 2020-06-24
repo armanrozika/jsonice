@@ -1,8 +1,24 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
+
+import firebase from "../firebase"
 
 import "../styles/header.scss"
 function Header() {
+  const [showLogin, setShowLogin] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        setIsLoading(false)
+        setIsLoggedIn(true)
+      } else {
+        setIsLoggedIn(false)
+        setIsLoading(false)
+      }
+    })
+  })
   return (
     <header>
       <h1>
@@ -11,7 +27,6 @@ function Header() {
       <nav>
         <a href="https://github.com/armanrozika/jsonice" target="_blank">
           <svg
-            //className="octicon octicon-mark-github v-align-middle"
             height="26"
             viewBox="0 0 16 16"
             version="1.1"
@@ -27,13 +42,117 @@ function Header() {
         <Link activeClassName="active" to="/app">
           App
         </Link>
+
+        <Link activeClassName="active" to="/preset">
+          Preset
+        </Link>
+
         <Link activeClassName="active" to="/docs">
           Docs
         </Link>
         <Link activeClassName="active" to="/about">
           About
         </Link>
+        {isLoggedIn ? (
+          <button
+            className="login"
+            onClick={() => {
+              firebase.auth().signOut()
+            }}
+          >
+            Logout
+          </button>
+        ) : (
+          <button className="login" onClick={() => setShowLogin(true)}>
+            Login
+          </button>
+        )}
       </nav>
+      <div
+        className="login-modal"
+        style={{ display: showLogin ? "block" : "none" }}
+        onClick={e => {
+          e.stopPropagation()
+
+          if (e.target.className === "login-modal") {
+            setShowLogin(false)
+          }
+        }}
+      >
+        <div className="login-method">
+          <p>Login With</p>
+          <button
+            onClick={() => {
+              var provider = new firebase.auth.GoogleAuthProvider()
+              firebase
+                .auth()
+                .signInWithPopup(provider)
+                .then(function (result) {
+                  setShowLogin(false)
+                })
+                .catch(function (error) {
+                  // Handle Errors here.
+                  var errorCode = error.code
+                  var errorMessage = error.message
+                  // The email of the user's account used.
+                  var email = error.email
+                  // The firebase.auth.AuthCredential type that was used.
+                  var credential = error.credential
+                  // ...
+                })
+            }}
+          >
+            Google
+          </button>
+          <button
+            onClick={() => {
+              var provider = new firebase.auth.TwitterAuthProvider()
+              firebase
+                .auth()
+                .signInWithPopup(provider)
+                .then(function (result) {
+                  console.log(result.user)
+                  setShowLogin(false)
+                })
+                .catch(function (error) {
+                  // Handle Errors here.
+                  var errorCode = error.code
+                  var errorMessage = error.message
+                  // The email of the user's account used.
+                  var email = error.email
+                  // The firebase.auth.AuthCredential type that was used.
+                  var credential = error.credential
+                  // ...
+                })
+            }}
+          >
+            Twitter
+          </button>
+          <button
+            onClick={() => {
+              var provider = new firebase.auth.GithubAuthProvider()
+              firebase
+                .auth()
+                .signInWithPopup(provider)
+                .then(function (result) {
+                  setShowLogin(false)
+                })
+                .catch(function (error) {
+                  // Handle Errors here.
+                  var errorCode = error.code
+                  var errorMessage = error.message
+                  // The email of the user's account used.
+                  var email = error.email
+                  // The firebase.auth.AuthCredential type that was used.
+                  var credential = error.credential
+                  // ...
+                })
+            }}
+          >
+            GitHub
+          </button>
+        </div>
+      </div>
     </header>
   )
 }

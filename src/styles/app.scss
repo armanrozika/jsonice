@@ -1,10 +1,35 @@
 .app {
   .app-component {
     padding: 20px;
-
+    .schema-action {
+      display: grid;
+      grid-template-columns: 6fr 4fr;
+      justify-content: space-between;
+      //padding: 15px 5px 15px 5px;
+      background-color: #dbdbdb;
+      box-sizing: border-box;
+      .action-control {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 20px;
+        flex-flow: row-reverse;
+        .generate {
+          width: 100px;
+          background-color: #1998f4;
+          color: #fff;
+          padding: 4px 8px;
+          font-size: 14px;
+          cursor: pointer;
+          z-index: 99;
+          box-shadow: 2px 2px 3px grey;
+        }
+      }
+    }
     .preset-wrapper {
+      border-left: 1px solid #c0c0c0;
       display: flex;
       align-items: center;
+      padding-left: 10px;
       .basic-single {
         width: 300px;
         margin-right: 20px;
@@ -41,31 +66,17 @@
     }
 
     .main-app {
-      margin-top: 20px;
       display: grid;
       grid-template-columns: 6fr 4fr;
       background-color: #f2f2f2;
-      height: 80vh;
+      height: 75vh;
+      padding-top: 5px;
       .flex-child {
         padding: 0 20px 20px 20px;
         height: 100%;
         box-sizing: border-box;
         overflow: auto;
         position: relative;
-        .generate {
-          position: sticky;
-          width: 100px;
-          top: 0;
-          left: 100%;
-          margin-bottom: 10px;
-          background-color: #1998f4;
-          color: #fff;
-          padding: 4px 8px;
-          font-size: 14px;
-          cursor: pointer;
-          z-index: 99;
-          box-shadow: 2px 2px 3px grey;
-        }
         &:nth-child(2) {
           background-color: #28363f;
           //padding: 0;

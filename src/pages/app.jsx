@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Select from "react-select"
 import SyntaxHighlighter from "react-syntax-highlighter"
 import { monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs"
@@ -6,11 +6,13 @@ import uuid from "react-uuid"
 import Header from "../components/header.jsx"
 
 import { sanitateData } from "../helperFunction"
+import firebase from "../firebase"
 
 import SEO from "../components/SEO.jsx"
 import "../styles/app.scss"
 
 function App() {
+  const [user, setUser] = useState(null)
   const [allRows, setAllRows] = useState(2)
   const [JSONview, setJSONview] = useState("")
   const [isGenerating, setIsGenerating] = useState(false)
@@ -93,6 +95,16 @@ function App() {
       ],
     },
   ])
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        setUser(user)
+      } else {
+        setUser(null)
+      }
+    })
+  })
 
   const deleteRow = key => {
     const currentRows = [...rowsCount]
@@ -487,32 +499,42 @@ function App() {
       <SEO title="JSONICE" />
       <Header />
       <div className="app-component">
-        {/* <div className="preset-wrapper">
-          <Select
-            className="basic-single"
-            classNamePrefix="select"
-            isClearable
-            isSearchable
-            name="color"
-            placeholder="Preset List"
-          />
-          <p style={{ marginRight: "15px" }}>Or</p>
-          <input
-            className="preset-input"
-            type="text"
-            placeholder="Preset Key"
-          />
-          <button>Apply</button>
-        </div> */}
-        <div className="main-app">
-          <div className="flex-child">
+        <div className="schema-action">
+          <div className="action-control">
             <p
               onClick={sendJSON}
               className="generate"
-              style={{ backgroundColor: isGenerating ? "#72c4ff" : "#1998f4" }}
+              style={{
+                backgroundColor: isGenerating ? "#72c4ff" : "#1998f4",
+              }}
             >
               {isGenerating ? "Generating..." : "Generate"}
             </p>
+            {user && <p className="generate">Save</p>}
+          </div>
+
+          {user && (
+            <div className="preset-wrapper">
+              {/* <Select
+              className="basic-single"
+              classNamePrefix="select"
+              isClearable
+              isSearchable
+              name="color"
+              placeholder="Preset List"
+            />
+            <p style={{ marginRight: "15px" }}>Or</p> */}
+              <input
+                className="preset-input"
+                type="text"
+                placeholder="Preset ID"
+              />
+              <button>Apply</button>
+            </div>
+          )}
+        </div>
+        <div className="main-app">
+          <div className="flex-child">
             <div className="rows-count">
               <p>Rows</p>
               <input

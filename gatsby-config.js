@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: "Jsonice",
-    description: "Online json generator with real API call",
+    description: "Gui-based online json generator with real API call",
     url: "https://jsonice.com",
     author: "armanrozika",
   },
