@@ -3,6 +3,9 @@ import Select from "react-select"
 import SyntaxHighlighter from "react-syntax-highlighter"
 import { monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs"
 import uuid from "react-uuid"
+import { ToastContainer, toast } from "react-toastify"
+
+import "react-toastify/dist/ReactToastify.css"
 import Header from "../components/header.jsx"
 
 import { sanitateData } from "../helperFunction"
@@ -12,6 +15,7 @@ import SEO from "../components/SEO.jsx"
 import "../styles/app.scss"
 
 function App() {
+  const [modelName, setModelName] = useState("")
   const [user, setUser] = useState(null)
   const [allRows, setAllRows] = useState(2)
   const [JSONview, setJSONview] = useState("")
@@ -510,7 +514,54 @@ function App() {
             >
               {isGenerating ? "Generating..." : "Generate"}
             </p>
-            {user && <p className="generate">Save</p>}
+            <div className="model-action">
+              <input
+                type="text"
+                placeholder="model name"
+                value={modelName}
+                onChange={e => {
+                  setModelName(e.target.value)
+                }}
+              />
+              {user && (
+                <p
+                  className="generate"
+                  onClick={() => {
+                    const data = sanitateData(rowsCount, allRows)
+                    const user_id = user.uid
+                    if (!user_id) {
+                      return
+                    }
+
+                    if (data.error) {
+                      toast.error("Key can not be empty")
+                      return
+                    }
+                    if (!modelName) {
+                      toast.error("Name the model")
+                      return
+                    }
+                    data.user_id = user_id
+                    fetch("https://server-dummy.herokuapp.com/save", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json;charset=utf-8",
+                      },
+                      body: JSON.stringify(data),
+                    })
+                      .then(res => {
+                        toast.success("Sucessfully saved")
+                        console.log(res.json())
+                      })
+                      .catch(err => {
+                        console.log(err)
+                      })
+                  }}
+                >
+                  Save
+                </p>
+              )}
+            </div>
           </div>
 
           {user && (
@@ -575,6 +626,7 @@ function App() {
           </SyntaxHighlighter>
         </div>
       </div>
+      <ToastContainer />
     </div>
   )
 }

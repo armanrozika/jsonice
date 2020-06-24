@@ -26,6 +26,7 @@
     "react-json-syntax-highlighter": "^0.1.17",
     "react-select": "^3.1.0",
     "react-syntax-highlighter": "^12.2.1",
+    "react-toastify": "^6.0.6",
     "react-uuid": "^1.0.2"
   },
   "devDependencies": {
