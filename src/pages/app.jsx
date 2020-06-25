@@ -15,6 +15,9 @@ import SEO from "../components/SEO.jsx"
 import "../styles/app.scss"
 
 function App() {
+  const [loadingSave, setLoadingSave] = useState(false)
+  const [loadingApply, setLoadingApply] = useState(false)
+  const [presetId, setPresetId] = useState("")
   const [modelName, setModelName] = useState("")
   const [user, setUser] = useState(null)
   const [allRows, setAllRows] = useState(2)
@@ -498,6 +501,33 @@ function App() {
     })
   }
 
+  const applySchema = async () => {
+    if (!presetId) {
+      return
+    }
+    try {
+      setLoadingApply(true)
+      const dataToSend = {
+        doc_id: presetId,
+      }
+      const res = await fetch("https://server-dummy.herokuapp.com/apply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(dataToSend),
+      })
+      const response = await res.json()
+      setRowsCount(response.raw)
+      setJSONview(response.result)
+      setLoadingApply(false)
+    } catch (err) {
+      toast.error("Network error")
+      setLoadingApply(false)
+      console.log(err)
+    }
+  }
+
   return (
     <div className="app">
       <SEO title="JSONICE" />
@@ -509,10 +539,10 @@ function App() {
               onClick={sendJSON}
               className="generate"
               style={{
-                backgroundColor: isGenerating ? "#72c4ff" : "#1998f4",
+                backgroundColor: isGenerating ? "#69b5ec" : "#1998f4",
               }}
             >
-              {isGenerating ? "Generating..." : "Generate"}
+              Generate
             </p>
             {user && (
               <div className="model-action">
@@ -526,6 +556,9 @@ function App() {
                 />
                 <p
                   className="generate"
+                  style={{
+                    backgroundColor: loadingSave ? "#69b5ec" : "#1998f4",
+                  }}
                   onClick={() => {
                     const data = sanitateData(rowsCount, allRows)
                     const user_id = user.uid
@@ -543,6 +576,7 @@ function App() {
                     }
                     data.user_id = user_id
                     data.schema_name = modelName
+                    setLoadingSave(true)
                     fetch("https://server-dummy.herokuapp.com/save", {
                       method: "POST",
                       headers: {
@@ -552,9 +586,13 @@ function App() {
                     })
                       .then(res => {
                         toast.success("Sucessfully saved")
-                        console.log(res.json())
+                        setLoadingSave(false)
+                        setModelName("")
+                        //console.log(res.json())
                       })
                       .catch(err => {
+                        toast.error("Network error")
+                        setLoadingSave(false)
                         console.log(err)
                       })
                   }}
@@ -580,8 +618,17 @@ function App() {
                 className="preset-input"
                 type="text"
                 placeholder="Preset ID"
+                value={presetId}
+                onChange={e => setPresetId(e.target.value)}
               />
-              <button>Apply</button>
+              <button
+                onClick={applySchema}
+                style={{
+                  backgroundColor: loadingApply ? "#69b5ec" : "#1998f4",
+                }}
+              >
+                Apply
+              </button>
             </div>
           )}
         </div>
