@@ -622,6 +622,7 @@ function App() {
             language="json"
             showLineNumbers
             style={monokaiSublime}
+            wrapLines={true}
           >
             {JSON.stringify(JSONview, null, 3)}
           </SyntaxHighlighter>

@@ -9,4 +9,20 @@
   p {
     line-height: 1.7;
   }
+  .preset-wrapper {
+    margin-bottom: 20px;
+    p {
+    }
+    .preset-id {
+      display: flex;
+      p {
+        margin-right: 10px;
+        color: #474747;
+      }
+      button {
+        padding: 0 10px;
+        cursor: pointer;
+      }
+    }
+  }
 }

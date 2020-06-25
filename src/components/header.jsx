@@ -6,16 +6,19 @@ import firebase from "../firebase"
 import "../styles/header.scss"
 function Header() {
   const [showLogin, setShowLogin] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [signupLoading, setSignupLoading] = useState(false)
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  })
+  const [error, setError] = useState("")
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        setIsLoading(false)
         setIsLoggedIn(true)
       } else {
         setIsLoggedIn(false)
-        setIsLoading(false)
       }
     })
     return function () {
@@ -63,11 +66,11 @@ function Header() {
               firebase.auth().signOut()
             }}
           >
-            Logout
+            Sign Out
           </button>
         ) : (
           <button className="login" onClick={() => setShowLogin(true)}>
-            Login
+            Sign In
           </button>
         )}
       </nav>
@@ -83,7 +86,54 @@ function Header() {
         }}
       >
         <div className="login-method">
-          <p>Login With</p>
+          <form
+            onSubmit={e => {
+              e.preventDefault()
+              setSignupLoading(true)
+              firebase
+                .auth()
+                .createUserWithEmailAndPassword(form.email, form.password)
+                .then(() => {
+                  setShowLogin(false)
+                  setSignupLoading(false)
+                })
+                .catch(err => {
+                  setError(err.message)
+                  setSignupLoading(false)
+                })
+            }}
+          >
+            <p>Sign Up</p>
+            {error && <p className="error">{error}</p>}
+            <input
+              type="text"
+              placeholder="email"
+              name="email"
+              required
+              value={form.email}
+              onChange={e => {
+                setForm({
+                  ...form,
+                  [e.target.name]: e.target.value,
+                })
+              }}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              name="password"
+              required
+              value={form.password}
+              onChange={e => {
+                setForm({
+                  ...form,
+                  [e.target.name]: e.target.value,
+                })
+              }}
+            />
+            <button>{signupLoading ? "Signing You Up..." : "Sign Up"}</button>
+          </form>
+          <p>Or sign in with</p>
           <button
             onClick={() => {
               var provider = new firebase.auth.GoogleAuthProvider()
@@ -97,6 +147,7 @@ function Header() {
                   // Handle Errors here.
                   var errorCode = error.code
                   var errorMessage = error.message
+                  //setError(error.message)
                   // The email of the user's account used.
                   var email = error.email
                   // The firebase.auth.AuthCredential type that was used.
@@ -106,53 +157,6 @@ function Header() {
             }}
           >
             Google
-          </button>
-          <button
-            onClick={() => {
-              var provider = new firebase.auth.TwitterAuthProvider()
-              firebase
-                .auth()
-                .signInWithPopup(provider)
-                .then(function (result) {
-                  console.log(result.user)
-                  setShowLogin(false)
-                })
-                .catch(function (error) {
-                  // Handle Errors here.
-                  var errorCode = error.code
-                  var errorMessage = error.message
-                  // The email of the user's account used.
-                  var email = error.email
-                  // The firebase.auth.AuthCredential type that was used.
-                  var credential = error.credential
-                  // ...
-                })
-            }}
-          >
-            Twitter
-          </button>
-          <button
-            onClick={() => {
-              var provider = new firebase.auth.GithubAuthProvider()
-              firebase
-                .auth()
-                .signInWithPopup(provider)
-                .then(function (result) {
-                  setShowLogin(false)
-                })
-                .catch(function (error) {
-                  // Handle Errors here.
-                  var errorCode = error.code
-                  var errorMessage = error.message
-                  // The email of the user's account used.
-                  var email = error.email
-                  // The firebase.auth.AuthCredential type that was used.
-                  var credential = error.credential
-                  // ...
-                })
-            }}
-          >
-            GitHub
           </button>
         </div>
       </div>
