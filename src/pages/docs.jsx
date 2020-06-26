@@ -17,7 +17,7 @@ function Tutorial() {
       const fetchData = async ()=> {
         try{
           //this is correct API endpoint, don't mind the name ^_^
-          const response = await fetch("https://server-dummy.herokuapp.com/", {
+          const response = await fetch("https://server-dummy.herokuapp.com/api", {
             method: 'POST',
             headers: {
               "Content-Type": "application/json;charset=utf-8",
