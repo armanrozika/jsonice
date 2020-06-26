@@ -1,9 +1,43 @@
 import React from "react"
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs"
 import SEO from "../components/SEO.jsx"
 import Header from "../components/header.jsx"
 import "../styles/docs.scss"
 
 function Tutorial() {
+  const codeString = `
+      //in this example I use fetch, you can use axios or other libraries
+      //just make sure to include this below as your request body
+      const reqBody = {
+        //change presetId with correct preset ID
+        doc_id: presetId 
+      }
+    
+      const fetchData = async ()=> {
+        try{
+          //this is correct API endpoint, don't mind the name ^_^
+          const response = await fetch("https://server-dummy.herokuapp.com/", {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify(reqBody)
+          });
+          const data = await res.json()
+          //your data
+          console.log(data)
+        }catch(err){
+          console.log(err)
+        }
+      };
+
+      //don't forget to invoke the function
+      //obviously, you can implement the API call however you like, just make sure your request body looks like one above
+      fetchData()
+  
+  
+  `
   return (
     <div className="docs">
       <Header />
@@ -42,11 +76,38 @@ function Tutorial() {
         <h3>Adding nested child</h3>
         <p>To add child, there are two options, add object and add array.</p>
         <p>
-          Add object will make the child as object, and add array will make the
-          child as array of objects, that's why there is a rows count input if
-          you add array.
+          Add object will make the child as an object, and add array will make
+          the child as array of objects, that's why there is a rows count input
+          if you add array.
         </p>
+        <br />
+        <h3>Save and apply preset</h3>
+        <p>
+          You can save your current model as a preset so you can share it to
+          anyone else (you need to login), or use it again in the future.
+        </p>
+        <p>
+          To save preset, just give your preset a name and then hit save. Your
+          presets will be available in the Preset page.
+        </p>
+        <p>To apply a preset, fill in the preset id and hit apply</p>
+        <br />
+        <h3>API Call via your App</h3>
+        <p>
+          You can do API call to JSONICE backend via your app (NO need to login,
+          as long as you have the preset ID), here's to do it:
+        </p>
+        <SyntaxHighlighter
+          className="highlighter"
+          language="javascript"
+          // showLineNumbers
+          style={atomOneDark}
+          wrapLines={true}
+        >
+          {codeString}
+        </SyntaxHighlighter>
       </div>
+      <br />
     </div>
   )
 }

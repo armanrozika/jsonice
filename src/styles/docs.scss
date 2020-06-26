@@ -27,4 +27,9 @@
       line-height: 1.7;
     }
   }
+  .highlighter {
+    code {
+      background-color: unset;
+    }
+  }
 }
