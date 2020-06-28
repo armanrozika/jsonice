@@ -17,9 +17,9 @@ export default function Home() {
           call.
         </p>
         <p>No more copy-paste.</p>
-        <Link to="/app">
+        <a href="/app">
           <button>Get started</button>
-        </Link>
+        </a>
       </div>
     </div>
   )
