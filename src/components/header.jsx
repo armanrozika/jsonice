@@ -45,18 +45,18 @@ function Header() {
             ></path>
           </svg>
         </a>
-        <Link activeClassName="active" to="/app">
+        <Link activeClassName="active" to="/app/">
           App
         </Link>
 
-        <Link activeClassName="active" to="/preset">
+        <Link activeClassName="active" to="/preset/">
           Preset
         </Link>
 
-        <Link activeClassName="active" to="/docs">
+        <Link activeClassName="active" to="/docs/">
           Docs
         </Link>
-        <Link activeClassName="active" to="/about">
+        <Link activeClassName="active" to="/about/">
           About
         </Link>
         {isLoggedIn ? (
