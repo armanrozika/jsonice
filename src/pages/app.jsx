@@ -603,9 +603,8 @@ function App() {
             )}
           </div>
 
-          {user && (
-            <div className="preset-wrapper">
-              {/* <Select
+          <div className="preset-wrapper">
+            {/* <Select
               className="basic-single"
               classNamePrefix="select"
               isClearable
@@ -614,23 +613,22 @@ function App() {
               placeholder="Preset List"
             />
             <p style={{ marginRight: "15px" }}>Or</p> */}
-              <input
-                className="preset-input"
-                type="text"
-                placeholder="Preset ID"
-                value={presetId}
-                onChange={e => setPresetId(e.target.value)}
-              />
-              <button
-                onClick={applySchema}
-                style={{
-                  backgroundColor: loadingApply ? "#69b5ec" : "#1998f4",
-                }}
-              >
-                Apply
-              </button>
-            </div>
-          )}
+            <input
+              className="preset-input"
+              type="text"
+              placeholder="Preset ID"
+              value={presetId}
+              onChange={e => setPresetId(e.target.value)}
+            />
+            <button
+              onClick={applySchema}
+              style={{
+                backgroundColor: loadingApply ? "#69b5ec" : "#1998f4",
+              }}
+            >
+              Apply
+            </button>
+          </div>
         </div>
         <div className="main-app">
           <div className="flex-child">
