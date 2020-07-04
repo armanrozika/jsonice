@@ -44,6 +44,17 @@ function Tutorial() {
       <SEO title="JSONICE" />
       <div className="content-docs">
         <h2>Some Docs</h2>
+        <h3>First time generate</h3>
+        <p>
+          The first time you open the site, and try to generate JSON, it will be
+          slow, takes about 5-10 seconds to generate.
+        </p>
+        <p>
+          The server for this app is hosted on Heroku (free tier), that makes
+          server sleep if inactive, and when there's request, server needs time
+          to wake up.
+        </p>
+        <br />
         <h3>Form input structure</h3>
         <p>
           There are four inputs available: <code>key</code> <code>type</code>{" "}
@@ -90,13 +101,14 @@ function Tutorial() {
           To save preset, just give your preset a name and then hit save. Your
           presets will be available in the Preset page.
         </p>
-        <p>To apply a preset, fill in the preset id and hit apply</p>
+        <p>To apply a preset, fill in the preset id and hit apply.</p>
         <br />
         <h3>API Call via your App</h3>
         <p>
           You can do API call to JSONICE backend via your app (NO need to login,
           as long as you have the preset ID), here's to do it:
         </p>
+        <br />
         <SyntaxHighlighter
           className="highlighter"
           language="javascript"
