@@ -104,6 +104,11 @@ function Header() {
             }}
           >
             <p>Sign Up</p>
+            <p>
+              Just use a fake email, or even gibberish non existent email
+              address like kajsdhaurujhas@jaksdjaksd.com, the sign in needed
+              only for storing your presets
+            </p>
             {error && <p className="error">{error}</p>}
             <input
               type="text"
